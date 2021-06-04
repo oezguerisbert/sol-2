@@ -1,0 +1,79 @@
+{
+  "name": "sol-2",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev",
+    "reset": "npx prisma generate && npx prisma migrate reset --force --skip-seed && npx prisma db push --preview-feature && npx prisma db seed --preview-feature",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json pages/api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/react-hooks": "4.0.0",
+    "@apollo/react-ssr": "4.0.0",
+    "@headlessui/react": "^1.1.1",
+    "@heroicons/react": "^1.0.1",
+    "@prisma/client": "2.21.2",
+    "@tabler/icons": "^1.41.2",
+    "@types/js-cookie": "^2.2.6",
+    "@types/secure-password": "^3.1.0",
+    "apollo-boost": "0.4.9",
+    "apollo-link-http": "1.5.17",
+    "apollo-link-schema": "1.2.5",
+    "apollo-server-micro": "2.24.0",
+    "autoprefixer": "^10.2.5",
+    "express": "4.17.1",
+    "formik": "^2.2.6",
+    "framer": "^1.2.29",
+    "framer-motion": "^4.1.11",
+    "fs": "^0.0.1-security",
+    "graphql": "14.5.8",
+    "graphql-scalars": "1.9.3",
+    "graphql-tag": "2.12.4",
+    "js-base64": "^3.6.1",
+    "js-cookie": "^2.2.1",
+    "next": "10.2.0",
+    "next-seo": "^4.24.0",
+    "nexus": "1.0.0",
+    "nprogress": "^0.2.0",
+    "path": "^0.12.7",
+    "prisma": "2.21.2",
+    "react": "16.12.0",
+    "react-apollo": "3.1.5",
+    "react-dom": "16.12.0",
+    "react-markdown": "5.0.3",
+    "secure-password": "^4.0.0",
+    "tailwindcss": "^2.1.2",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@types/graphql": "14.5.0",
+    "@types/node": "13.13.51",
+    "@types/react": "16.8.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "ts-node": "^9.1.1",
+    "typescript": "4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "prettier-eslint write \"{,!(node_modules)/**/}*.{js,jsx,ts,tsx}\"",
+      "eslint . --ext .js,.jsx,.ts,.tsx"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  }
+}

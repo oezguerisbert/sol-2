@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userid    String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  role      String    @default("user")
+  room      Room?     @relation(fields: [roomId], references: [roomid])
+  roomId    String?
+  History   History[]
+}
+
+model Room {
+  roomid      String    @id @default(uuid())
+  title       String
+  maxmembers  Int       @default(15)
+  description String?
+  members     User[]
+  History     History[]
+}
+
+model History {
+  historyid  String   @id @default(uuid())
+  user       User     @relation(fields: [userUserid], references: [userid])
+  room       Room     @relation(fields: [roomRoomid], references: [roomid])
+  timestamp  DateTime
+  status     String   @default("entered")
+  userUserid String
+  roomRoomid String
+}
+
+model Times {
+  timesid String   @id @default(uuid())
+  start   DateTime
+  end     DateTime
+  week    Week?    @relation(fields: [weekId], references: [weekid])
+  weekId  String?
+}
+
+model Week {
+  weekid     String  @id @default(uuid())
+  weekNumber Int
+  days       Times[]
+}
